@@ -17,7 +17,7 @@ class CreateTestimonialsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('field');
-            $table->string('comment')->nullable();
+            $table->longText('comment')->nullable();
             $table->longText('image')->nullable();
             $table->integer('rate')->default(0);
             $table->timestamps();

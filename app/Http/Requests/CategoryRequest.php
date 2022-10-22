@@ -50,20 +50,4 @@ class CategoryRequest extends FormRequest
     }
 
 
-
-    public function messages()
-
-    {
-
-        return [
-
-            'name.required' => 'Category Name is Required.',
-
-            'logo.image' => 'This image cannot support to store.'
-
-        ];
-
-    }
-
-
 }

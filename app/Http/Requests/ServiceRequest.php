@@ -51,23 +51,4 @@ class ServiceRequest extends FormRequest
 
     }
 
-
-
-    public function messages()
-
-    {
-
-        return [
-
-            'name.required' => 'Service name is required.',
-            'logo.required' => 'Logo is required.',
-            'description.required' => 'Description is required.',
-            'image.required' => 'Service image is required.',
-            'logo.image' => 'This file cannot support to store.',
-            'image.image' => 'This file cannot support to store.',
-            'category_id.required' => 'Category is required'
-        ];
-
-    }
-
 }

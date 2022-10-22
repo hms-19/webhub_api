@@ -52,21 +52,4 @@ class BlogRequest extends FormRequest
 
     }
 
-
-
-    public function messages()
-
-    {
-
-        return [
-
-            'title.required' => 'Blog title is required.',
-            'author.required' => 'Author Name is required.',
-            'description.required' => 'Description is required.',
-            'image.required' => 'Blog image is required.',
-            'image.image' => 'This file cannot support to store.',
-            'category_id.required' => 'Category is required'
-        ];
-
-    }
 }

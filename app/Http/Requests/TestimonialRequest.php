@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class TestimonialRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class TestimonialRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,28 @@ class TestimonialRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|unique:services|max:255',
+            'field' => 'required',
+            'image' => 'required|image:jpeg,png,jpg,gif,svg|max:2048',
+            'comment' => 'required',
+            'rate' => 'nullable'
         ];
+    }
+
+
+    public function failedValidation(Validator $validator)
+
+    {
+
+        throw new HttpResponseException(response()->json([
+
+            'success'   => false,
+
+            'message'   => 'Validation errors',
+
+            'data'      => $validator->errors()
+
+        ]));
+
     }
 }

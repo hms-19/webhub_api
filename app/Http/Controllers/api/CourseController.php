@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CourseResource;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -14,7 +16,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        return CourseResource::collection(Course::all());
     }
 
     /**
@@ -35,7 +37,28 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $course = new Course();
+
+        $course->title = $request->title;
+        $course->outline = $request->outline;
+        $course->description = $request->description;
+        $course->category_id = $request->category_id;
+        $course->duration = $request->duration;
+        $course->comment_count = $request->comment_count;
+        $course->student = $request->student;
+
+
+        if($request->hasFile('image')){
+            $image = $request->image;
+            $filename = $image->hashName();
+            $image->storeAs('images',$filename);
+        }
+
+        $course->image = $filename ?? null;
+
+        $course->save();
+
+        return new CourseResource($course);
     }
 
     /**
@@ -46,7 +69,8 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        //
+        return new CourseResource(Course::findOrFail($id));
+
     }
 
     /**
@@ -69,7 +93,32 @@ class CourseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $course = Course::find($id);
+
+        $course->title = $request->title ?? $course->title;
+        $course->outline = $request->outline ?? $course->outline;
+        $course->description = $request->description ?? $course->description;
+        $course->category_id = $request->category_id ?? $course->category_id;
+        $course->duration = $request->duration ?? $course->duration;
+        $course->student = $request->student ?? $course->student;
+        $course->comment_count = $request->comment_count ?? $course->comment_count;
+
+        if($request->hasFile('image')){
+
+            if(file_exists(public_path('images/'.$course->image))){
+                unlink(public_path('images/'.$course->image));
+            }
+
+            $image = $request->image;
+            $filename = $image->hashName();
+            $image->storeAs('images',$filename);
+        }
+
+        $course->image = $filename ?? $course->image;
+
+        $course->save();
+
+        return new CourseResource($course);
     }
 
     /**
@@ -80,6 +129,17 @@ class CourseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $course = Course::findOrFail($id);
+
+
+        if(file_exists(public_path('images/'.$course->image))){
+            unlink(public_path('images/'.$course->image));
+        }
+
+        $course->delete();
+
+        return response()->json([
+            'message' => 'Deleted Successfully',
+        ]);
     }
 }
