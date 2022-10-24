@@ -18,10 +18,11 @@ class Course extends Model
         'image',
         'duration',
         "student",
-        "comment_count"
+        "comment_count",
+        "category_id"
     ];
 
     public function category(){
-        return $this->hasOne(Category::class,'id');
+        return $this->belongsTo(Category::class);
     }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\BlogController;
 use App\Http\Controllers\api\CategoryController;
+use App\Http\Controllers\api\ContactController;
 use App\Http\Controllers\api\CourseController;
 use App\Http\Controllers\api\ServiceController;
 use App\Http\Controllers\api\TestimonialController;
@@ -19,9 +20,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware('domain_whitelist')->group(function() {
+    Route::apiResource('categories', CategoryController::class);
+    Route::apiResource('services', ServiceController::class);
+    Route::apiResource('blogs', BlogController::class);
+    Route::apiResource('testimonials', TestimonialController::class);
+    Route::apiResource('courses', CourseController::class);
+    Route::post('/contactus',[ContactController::class,'contactMessage']);
+});
 
-Route::apiResource('categories', CategoryController::class);
-Route::apiResource('services', ServiceController::class);
-Route::apiResource('blogs', BlogController::class);
-Route::apiResource('testimonials', TestimonialController::class);
-Route::apiResource('courses', CourseController::class);
+
+

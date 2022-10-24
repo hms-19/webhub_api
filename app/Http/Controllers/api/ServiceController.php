@@ -106,7 +106,9 @@ class ServiceController extends Controller
         if($request->hasFile('logo')){
 
             if(file_exists(public_path('images/'.$service->logo))){
-                unlink(public_path('images/'.$service->logo));
+                if($service->logo){
+                    unlink(public_path('images/'.$service->logo));
+                }
             }
 
             $logo = $request->logo;
@@ -120,7 +122,9 @@ class ServiceController extends Controller
         if($request->hasFile('image')){
 
             if(file_exists(public_path('images/'.$service->image))){
-                unlink(public_path('images/'.$service->image));
+                if($service->image){
+                    unlink(public_path('images/'.$service->image));
+                }
             }
 
             $image = $request->image;
@@ -146,11 +150,15 @@ class ServiceController extends Controller
         $service = Service::findOrFail($id);
 
         if(file_exists(public_path('images/'.$service->logo))){
-            unlink(public_path('images/'.$service->logo));
+            if($service->logo){
+                unlink(public_path('images/'.$service->logo));
+            }
         }
 
         if(file_exists(public_path('images/'.$service->image))){
-            unlink(public_path('images/'.$service->image));
+            if($service->image){
+                unlink(public_path('images/'.$service->image));
+            }
         }
 
         $service->delete();

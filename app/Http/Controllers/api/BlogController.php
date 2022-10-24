@@ -17,7 +17,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return BlogResource::collection(Blog::paginate());
+        return BlogResource::collection(Blog::all());
     }
 
     /**
@@ -90,7 +90,7 @@ class BlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $blog = Blog::find($id);
+        $blog = Blog::findorFail($id);
 
         $blog->title = $request->title ?? $blog->title;
         $blog->description = $request->description ?? $blog->description;
@@ -100,7 +100,9 @@ class BlogController extends Controller
         if($request->hasFile('image')){
 
             if(file_exists(public_path('images/'.$blog->image))){
-                unlink(public_path('images/'.$blog->image));
+                if($blog->image){
+                    unlink(public_path('images/'.$blog->image));
+                }
             }
 
             $image = $request->image;
@@ -127,7 +129,9 @@ class BlogController extends Controller
 
 
         if(file_exists(public_path('images/'.$blog->image))){
-            unlink(public_path('images/'.$blog->image));
+            if($blog->image){
+                unlink(public_path('images/'.$blog->image));
+            }
         }
 
         $blog->delete();

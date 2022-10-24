@@ -43,6 +43,7 @@ class CourseController extends Controller
         $course->outline = $request->outline;
         $course->description = $request->description;
         $course->category_id = $request->category_id;
+        $course->price = $request->price ?? $course->price;
         $course->duration = $request->duration;
         $course->comment_count = $request->comment_count;
         $course->student = $request->student;
@@ -98,6 +99,7 @@ class CourseController extends Controller
         $course->title = $request->title ?? $course->title;
         $course->outline = $request->outline ?? $course->outline;
         $course->description = $request->description ?? $course->description;
+        $course->price = $request->price ?? $course->price;
         $course->category_id = $request->category_id ?? $course->category_id;
         $course->duration = $request->duration ?? $course->duration;
         $course->student = $request->student ?? $course->student;
@@ -106,7 +108,9 @@ class CourseController extends Controller
         if($request->hasFile('image')){
 
             if(file_exists(public_path('images/'.$course->image))){
-                unlink(public_path('images/'.$course->image));
+                if($course->image){
+                    unlink(public_path('images/'.$course->image));
+                }
             }
 
             $image = $request->image;
@@ -133,7 +137,9 @@ class CourseController extends Controller
 
 
         if(file_exists(public_path('images/'.$course->image))){
-            unlink(public_path('images/'.$course->image));
+            if($course->image){
+                unlink(public_path('images/'.$course->image));
+            }
         }
 
         $course->delete();

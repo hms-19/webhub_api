@@ -100,7 +100,9 @@ class TestimonialController extends Controller
         if($request->hasFile('image')){
 
             if(file_exists(public_path('images/'.$testimonial->image))){
-                unlink(public_path('images/'.$testimonial->image));
+                if($testimonial->image){
+                    unlink(public_path('images/'.$testimonial->image));
+                }
             }
 
             $image = $request->image;
@@ -127,7 +129,9 @@ class TestimonialController extends Controller
 
 
         if(file_exists(public_path('images/'.$testimonial->image))){
-            unlink(public_path('images/'.$testimonial->image));
+            if($testimonial->image){
+                unlink(public_path('images/'.$testimonial->image));
+            }
         }
 
         $testimonial->delete();

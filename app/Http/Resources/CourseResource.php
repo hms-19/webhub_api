@@ -26,7 +26,7 @@ class CourseResource extends JsonResource
             'student' => $this->student,
             'comment_count' => $this->comment_count,
             'image' => isset($this->image) ? asset('images').'/'.$this->image : null,
-            'created_at' => Carbon::parse($this->created_at)->format('mm d, YYYY')
+            'date' => Carbon::parse($this->created_at)->format('mm d, YYYY')
         ];
     }
 

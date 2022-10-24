@@ -99,8 +99,10 @@ class CategoryController extends Controller
         $category->parent_id = $request->parent_id ?? null;
 
         if($request->hasFile('logo')){
-            if(file_exists(public_path('images/'.$category->logo))){
-                unlink(public_path('images/'.$category->logo));
+            if($category->logo){
+                if(file_exists(public_path('images/'.$category->logo))){
+                    unlink(public_path('images/'.$category->logo));
+                }
             }
 
             $logo = $request->logo;
@@ -125,7 +127,9 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         if(file_exists(public_path('images/'.$category->logo))){
+           if($category->logo){
             unlink(public_path('images/'.$category->logo));
+           }
         }
 
         $category->delete();
