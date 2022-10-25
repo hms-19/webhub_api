@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\ContactMailJob;
 use App\Mail\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -34,7 +35,8 @@ class ContactController extends Controller
             'message' => $request->message,
          ];
 
-        Mail::to('admin@webhubmm.com')->send(new Contact($data));
+         dispatch(new ContactMailJob($data));
+
         return response()->json([
             'message' => 'Message was sent successfully'
         ]);

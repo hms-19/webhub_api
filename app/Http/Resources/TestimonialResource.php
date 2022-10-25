@@ -17,7 +17,7 @@ class TestimonialResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'image' => isset($this->image) ? asset('images').'/'.$this->image : null,
+            // 'image' => isset($this->image) ? asset('images').'/'.$this->image : null,
             'field' => $this->field,
             'comment' => $this->comment,
             'rate' => $this->rate

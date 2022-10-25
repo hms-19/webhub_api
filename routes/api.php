@@ -20,14 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('domain_whitelist')->group(function() {
-    Route::apiResource('categories', CategoryController::class);
-    Route::apiResource('services', ServiceController::class);
-    Route::apiResource('blogs', BlogController::class);
-    Route::apiResource('testimonials', TestimonialController::class);
-    Route::apiResource('courses', CourseController::class);
-    Route::post('/contactus',[ContactController::class,'contactMessage']);
-});
-
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('services', ServiceController::class);
+Route::apiResource('blogs', BlogController::class);
+Route::apiResource('testimonials', TestimonialController::class);
+Route::apiResource('courses', CourseController::class);
+Route::post('/contactus',[ContactController::class,'contactMessage']);
 
 

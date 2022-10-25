@@ -17,7 +17,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return BlogResource::collection(Blog::all());
+        return BlogResource::collection(Blog::with(['category' => function($query) {
+            return $query->select(['id', 'name']);
+        }])->get());
     }
 
     /**

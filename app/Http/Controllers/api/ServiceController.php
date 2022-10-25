@@ -17,7 +17,9 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        return ServiceResource::collection(Service::all());
+        return ServiceResource::collection(Service::with(['category' => function($query) {
+            return $query->select(['id', 'name']);
+        }])->get());
     }
 
     /**
