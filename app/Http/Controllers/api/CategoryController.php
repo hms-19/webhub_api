@@ -138,4 +138,8 @@ class CategoryController extends Controller
             'message' => 'Deleted Successfully',
         ]);
     }
+
+    public function categoriesList(){
+        return CategoryResource::collection(Category::whereHas('blogs')->get());
+    }
 }

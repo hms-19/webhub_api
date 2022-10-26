@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\BlogByCategoryController;
 use App\Http\Controllers\api\BlogController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\ContactController;
@@ -26,5 +27,5 @@ Route::apiResource('blogs', BlogController::class);
 Route::apiResource('testimonials', TestimonialController::class);
 Route::apiResource('courses', CourseController::class);
 Route::post('/contactus',[ContactController::class,'contactMessage']);
-
-
+Route::get('/blogsbycategory',[BlogByCategoryController::class,'index']);
+Route::get('/categories',[CategoryController::class,'categoriesList']);

@@ -17,7 +17,7 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'logo' => isset($this->logo) ? asset('images').'/'.$this->logo : null,
+            // 'logo' => isset($this->logo) ? asset('images').'/'.$this->logo : null,
             'children' => isset($this->children) ? CategoryResource::collection($this->children) : []
         ];
     }
