@@ -17,8 +17,10 @@ class CategoryResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'slug' => $this->slug ?? null,
             // 'logo' => isset($this->logo) ? asset('images').'/'.$this->logo : null,
-            'children' => isset($this->children) ? CategoryResource::collection($this->children) : []
+            'children' => isset($this->children) ? CategoryResource::collection($this->children) : [],
+            'blog_count' => count($this->blogs)
         ];
     }
 

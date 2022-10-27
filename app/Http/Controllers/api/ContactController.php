@@ -35,8 +35,8 @@ class ContactController extends Controller
             'message' => $request->message,
          ];
 
-         dispatch(new ContactMailJob($data));
-
+        //  dispatch(new ContactMailJob($data));
+        Mail::to('admin@webhubmm.com')->send(new Contact($data));
         return response()->json([
             'message' => 'Message was sent successfully'
         ]);

@@ -7,7 +7,7 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -46,6 +46,7 @@ class CategoryController extends Controller
         $category = new Category;
 
         $category->name = $request->name;
+        $category->slug = Str::slug($request->name);
         $category->parent_id = $request->parent_id ?? null;
 
         if($request->hasFile('logo')){
@@ -96,6 +97,7 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
 
         $category->name = $request->name ?? $category->name;
+        $category->slug = $request->name ? Str::slug($request->name) : $category->slug;
         $category->parent_id = $request->parent_id ?? null;
 
         if($request->hasFile('logo')){

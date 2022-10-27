@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Carbon\Carbon;
+use App\Http\Resources\CategoryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BlogResource extends JsonResource
@@ -22,8 +23,8 @@ class BlogResource extends JsonResource
             'author' => $this->author,
             'duration' => $this->duration,
             'image' => isset($this->image) ? asset('images').'/'.$this->image : null,
-            'category' => $this->category->name ?? null,
-            'date' => Carbon::parse($this->created_at)->format('M d, Y')
+            'category' => new CategoryResource($this->category) ?? null,
+            'date' => Carbon::parse($this->created_at)->format('M d, Y'),
         ];
     }
 

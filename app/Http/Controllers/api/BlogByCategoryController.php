@@ -13,8 +13,12 @@ class BlogByCategoryController extends Controller
 {
     public function index(Request $request){
 
-        $categoryId = $request->categoryId;
-        $blogs = Blog::where('category_id',$categoryId)->with('category')->get();
+        $categorySlug = $request->categorySlug;
+
+        $blogs = Blog::whereHas('category', function ($query) use ($categorySlug){
+            $query->where('slug',$categorySlug);
+        })->with('category')->get();
+
         return BlogResource::collection($blogs);
     }
 

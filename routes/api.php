@@ -28,4 +28,4 @@ Route::apiResource('testimonials', TestimonialController::class);
 Route::apiResource('courses', CourseController::class);
 Route::post('/contactus',[ContactController::class,'contactMessage']);
 Route::get('/blogsbycategory',[BlogByCategoryController::class,'index']);
-Route::get('/categories',[CategoryController::class,'categoriesList']);
+Route::get('/categoriesList',[CategoryController::class,'categoriesList']);
