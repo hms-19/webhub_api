@@ -17,14 +17,14 @@ class Contact extends Mailable
      * @return void
      */
 
-     public $data;
+    public $data;
 
     public function __construct($data)
     {
 
         $this->data = $data;
     }
-
+    
     /**
      * Build the message.
      *
@@ -33,6 +33,6 @@ class Contact extends Mailable
     public function build()
     {
         return $this->subject('Mail from Webhub User')
-        ->markdown('emails.contact');
+        ->view('emails.contact');
     }
 }

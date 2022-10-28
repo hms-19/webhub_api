@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CourseResource;
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CourseController extends Controller
 {
@@ -42,6 +43,7 @@ class CourseController extends Controller
         $course = new Course();
 
         $course->title = $request->title;
+        $course->slug = Str::slug($request->title);
         $course->outline = $request->outline;
         $course->description = $request->description;
         $course->category_id = $request->category_id;
@@ -72,7 +74,7 @@ class CourseController extends Controller
      */
     public function show($id)
     {
-        return new CourseResource(Course::findOrFail($id));
+        return new CourseResource(Course::where('slug',$id)->first());
 
     }
 
@@ -99,6 +101,7 @@ class CourseController extends Controller
         $course = Course::find($id);
 
         $course->title = $request->title ?? $course->title;
+        $course->slug = $request->title ? Str::slug($request->title) : $course->slug;
         $course->outline = $request->outline ?? $course->outline;
         $course->description = $request->description ?? $course->description;
         $course->price = $request->price ?? $course->price;

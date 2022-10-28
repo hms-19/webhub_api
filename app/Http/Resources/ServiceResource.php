@@ -17,6 +17,7 @@ class ServiceResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'slug' => $this->slug ?? null,
             'description' => $this->description,
             'logo' => isset($this->logo) ? asset('images').'/'.$this->logo : null,
             'image' => isset($this->image) ? asset('images').'/'.$this->image : null,

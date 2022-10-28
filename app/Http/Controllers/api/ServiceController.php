@@ -7,7 +7,7 @@ use App\Http\Requests\ServiceRequest;
 use App\Http\Resources\ServiceResource;
 use App\Models\Service;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
 class ServiceController extends Controller
 {
     /**
@@ -43,6 +43,7 @@ class ServiceController extends Controller
         $service = new Service();
 
         $service->name = $request->name;
+        $service->slug = Str::slug($request->name);
         $service->description = $request->description ?? null;
         $service->category_id = $request->category_id;
 
@@ -76,7 +77,7 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        return new ServiceResource(Service::findOrFail($id));
+        return new ServiceResource(Service::where('slug',$id)->first());
     }
 
     /**
@@ -102,6 +103,7 @@ class ServiceController extends Controller
         $service = Service::find($id);
 
         $service->name = $request->name ?? $service->name;
+        $service->slug = $request->name ? Str::slug($request->name) : $service->slug;
         $service->description = $request->description ?? $service->description;
         $service->category_id = $request->category_id ?? $service->category_id;
 

@@ -21,7 +21,7 @@ class ContactMailJob implements ShouldQueue
      * @return void
      */
 
-    public $data;
+    protected $data;
 
     public function __construct($data)
     {
